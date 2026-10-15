@@ -1,0 +1,1477 @@
+{
+  "offline_tests_exit_code": 0,
+  "source": {
+    "exit_code": 0,
+    "startup_snapshot_created": true,
+    "snapshot": {
+      "schema_version": 1,
+      "read_only": true,
+      "timestamp": 1791883843.0179684,
+      "fields": {
+        "basic": {
+          "label": "基本状态",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "gait": {
+          "label": "步态状态",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "motion": {
+          "label": "运动状态",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "balance": {
+          "label": "需要迈步调整平衡",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "zero": {
+          "label": "归零完成",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "speaker": {
+          "label": "扬声器",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "battery.percent": {
+          "label": "电池电量",
+          "group": "电源",
+          "unit": "%",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "battery.raw": {
+          "label": "UDP 电量原始值",
+          "group": "电源",
+          "unit": "原始值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "battery.voltage": {
+          "label": "电池电压",
+          "group": "电源",
+          "unit": "V",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "battery.temperature": {
+          "label": "电池温度",
+          "group": "电源",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "charging": {
+          "label": "充电状态",
+          "group": "手册占位字段",
+          "unit": "",
+          "supported": false,
+          "status": "unsupported"
+        },
+        "error_state": {
+          "label": "故障码",
+          "group": "手册占位字段",
+          "unit": "",
+          "supported": false,
+          "status": "unsupported"
+        },
+        "task_state": {
+          "label": "任务状态",
+          "group": "手册占位字段",
+          "unit": "",
+          "supported": false,
+          "status": "unsupported"
+        },
+        "touchdown": {
+          "label": "触地 / 楼梯标志",
+          "group": "手册占位字段",
+          "unit": "",
+          "supported": false,
+          "status": "unsupported"
+        },
+        "rpy.roll": {
+          "label": "姿态角 roll",
+          "group": "姿态角",
+          "unit": "°",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "rpy.pitch": {
+          "label": "姿态角 pitch",
+          "group": "姿态角",
+          "unit": "°",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "rpy.yaw": {
+          "label": "姿态角 yaw",
+          "group": "姿态角",
+          "unit": "°",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "angular.roll": {
+          "label": "姿态角速度 roll",
+          "group": "姿态角速度",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "angular.pitch": {
+          "label": "姿态角速度 pitch",
+          "group": "姿态角速度",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "angular.yaw": {
+          "label": "姿态角速度 yaw",
+          "group": "姿态角速度",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "acc.x": {
+          "label": "世界系加速度 x",
+          "group": "世界系加速度",
+          "unit": "m/s²",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "acc.y": {
+          "label": "世界系加速度 y",
+          "group": "世界系加速度",
+          "unit": "m/s²",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "acc.z": {
+          "label": "世界系加速度 z",
+          "group": "世界系加速度",
+          "unit": "m/s²",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "position.x": {
+          "label": "世界系位姿 x",
+          "group": "世界系位姿",
+          "unit": "m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "position.y": {
+          "label": "世界系位姿 y",
+          "group": "世界系位姿",
+          "unit": "m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "position.yaw": {
+          "label": "世界系位姿 yaw",
+          "group": "世界系位姿",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "world_velocity.x": {
+          "label": "世界系速度 x",
+          "group": "世界系速度",
+          "unit": "m/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "world_velocity.y": {
+          "label": "世界系速度 y",
+          "group": "世界系速度",
+          "unit": "m/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "world_velocity.yaw": {
+          "label": "世界系速度 yaw",
+          "group": "世界系速度",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "body_velocity.x": {
+          "label": "机身系速度 x",
+          "group": "机身系速度",
+          "unit": "m/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "body_velocity.y": {
+          "label": "机身系速度 y",
+          "group": "机身系速度",
+          "unit": "m/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "body_velocity.yaw": {
+          "label": "机身系速度 yaw",
+          "group": "机身系速度",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "ultrasound.front": {
+          "label": "前方距离",
+          "group": "超声波",
+          "unit": "m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "ultrasound.rear": {
+          "label": "后方距离",
+          "group": "超声波",
+          "unit": "m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipX.position": {
+          "label": "FL_HipX 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipX.velocity": {
+          "label": "FL_HipX 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipX.torque": {
+          "label": "FL_HipX 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipX.temperature": {
+          "label": "FL_HipX 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipY.position": {
+          "label": "FL_HipY 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipY.velocity": {
+          "label": "FL_HipY 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipY.torque": {
+          "label": "FL_HipY 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipY.temperature": {
+          "label": "FL_HipY 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_Knee.position": {
+          "label": "FL_Knee 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_Knee.velocity": {
+          "label": "FL_Knee 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_Knee.torque": {
+          "label": "FL_Knee 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_Knee.temperature": {
+          "label": "FL_Knee 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipX.position": {
+          "label": "FR_HipX 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipX.velocity": {
+          "label": "FR_HipX 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipX.torque": {
+          "label": "FR_HipX 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipX.temperature": {
+          "label": "FR_HipX 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipY.position": {
+          "label": "FR_HipY 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipY.velocity": {
+          "label": "FR_HipY 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipY.torque": {
+          "label": "FR_HipY 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipY.temperature": {
+          "label": "FR_HipY 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_Knee.position": {
+          "label": "FR_Knee 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_Knee.velocity": {
+          "label": "FR_Knee 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_Knee.torque": {
+          "label": "FR_Knee 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_Knee.temperature": {
+          "label": "FR_Knee 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipX.position": {
+          "label": "HL_HipX 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipX.velocity": {
+          "label": "HL_HipX 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipX.torque": {
+          "label": "HL_HipX 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipX.temperature": {
+          "label": "HL_HipX 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipY.position": {
+          "label": "HL_HipY 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipY.velocity": {
+          "label": "HL_HipY 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipY.torque": {
+          "label": "HL_HipY 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipY.temperature": {
+          "label": "HL_HipY 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_Knee.position": {
+          "label": "HL_Knee 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_Knee.velocity": {
+          "label": "HL_Knee 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_Knee.torque": {
+          "label": "HL_Knee 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_Knee.temperature": {
+          "label": "HL_Knee 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipX.position": {
+          "label": "HR_HipX 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipX.velocity": {
+          "label": "HR_HipX 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipX.torque": {
+          "label": "HR_HipX 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipX.temperature": {
+          "label": "HR_HipX 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipY.position": {
+          "label": "HR_HipY 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipY.velocity": {
+          "label": "HR_HipY 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipY.torque": {
+          "label": "HR_HipY 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipY.temperature": {
+          "label": "HR_HipY 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_Knee.position": {
+          "label": "HR_Knee 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_Knee.velocity": {
+          "label": "HR_Knee 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_Knee.torque": {
+          "label": "HR_Knee 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_Knee.temperature": {
+          "label": "HR_Knee 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FL.x": {
+          "label": "FL 足端力 x",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FL.y": {
+          "label": "FL 足端力 y",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FL.z": {
+          "label": "FL 足端力 z",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FR.x": {
+          "label": "FR 足端力 x",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FR.y": {
+          "label": "FR 足端力 y",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FR.z": {
+          "label": "FR 足端力 z",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HL.x": {
+          "label": "HL 足端力 x",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HL.y": {
+          "label": "HL 足端力 y",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HL.z": {
+          "label": "HL 足端力 z",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HR.x": {
+          "label": "HR 足端力 x",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HR.y": {
+          "label": "HR 足端力 y",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HR.z": {
+          "label": "HR 足端力 z",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "sdk.tick": {
+          "label": "SDK 时标",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "sdk.imu_timestamp": {
+          "label": "IMU 时标",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "log.motion_hint": {
+          "label": "日志动作提示",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "log.gyro_connected": {
+          "label": "日志陀螺仪连接",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "log.voltage_normal": {
+          "label": "日志电压正常",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "log.wifi_connected": {
+          "label": "日志控制端连接",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        }
+      },
+      "connections": {},
+      "metadata": {
+        "data_directory": "D:\\工作台\\机器狗\\X30控制脚本\\交接包\\lite3-smoke-2x8r5__c",
+        "version": "0.2.2",
+        "startup_receive_only": true,
+        "startup_autoconnect": false
+      },
+      "packet_counts": {},
+      "events": [],
+      "robot": {},
+      "capabilities": {
+        "read_telemetry": true,
+        "camera": true,
+        "motion_control": false,
+        "mcp_motion_control": false,
+        "adapters": [
+          "lite3"
+        ]
+      },
+      "control": {
+        "armed": false,
+        "direction": null,
+        "message": "未连接",
+        "operator_posture": null,
+        "busy": false
+      }
+    }
+  },
+  "exe": {
+    "exit_code": 0,
+    "startup_snapshot_created": true,
+    "snapshot": {
+      "schema_version": 1,
+      "read_only": true,
+      "timestamp": 1791883847.6460285,
+      "fields": {
+        "basic": {
+          "label": "基本状态",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "gait": {
+          "label": "步态状态",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "motion": {
+          "label": "运动状态",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "balance": {
+          "label": "需要迈步调整平衡",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "zero": {
+          "label": "归零完成",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "speaker": {
+          "label": "扬声器",
+          "group": "整机状态",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "battery.percent": {
+          "label": "电池电量",
+          "group": "电源",
+          "unit": "%",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "battery.raw": {
+          "label": "UDP 电量原始值",
+          "group": "电源",
+          "unit": "原始值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "battery.voltage": {
+          "label": "电池电压",
+          "group": "电源",
+          "unit": "V",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "battery.temperature": {
+          "label": "电池温度",
+          "group": "电源",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "charging": {
+          "label": "充电状态",
+          "group": "手册占位字段",
+          "unit": "",
+          "supported": false,
+          "status": "unsupported"
+        },
+        "error_state": {
+          "label": "故障码",
+          "group": "手册占位字段",
+          "unit": "",
+          "supported": false,
+          "status": "unsupported"
+        },
+        "task_state": {
+          "label": "任务状态",
+          "group": "手册占位字段",
+          "unit": "",
+          "supported": false,
+          "status": "unsupported"
+        },
+        "touchdown": {
+          "label": "触地 / 楼梯标志",
+          "group": "手册占位字段",
+          "unit": "",
+          "supported": false,
+          "status": "unsupported"
+        },
+        "rpy.roll": {
+          "label": "姿态角 roll",
+          "group": "姿态角",
+          "unit": "°",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "rpy.pitch": {
+          "label": "姿态角 pitch",
+          "group": "姿态角",
+          "unit": "°",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "rpy.yaw": {
+          "label": "姿态角 yaw",
+          "group": "姿态角",
+          "unit": "°",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "angular.roll": {
+          "label": "姿态角速度 roll",
+          "group": "姿态角速度",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "angular.pitch": {
+          "label": "姿态角速度 pitch",
+          "group": "姿态角速度",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "angular.yaw": {
+          "label": "姿态角速度 yaw",
+          "group": "姿态角速度",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "acc.x": {
+          "label": "世界系加速度 x",
+          "group": "世界系加速度",
+          "unit": "m/s²",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "acc.y": {
+          "label": "世界系加速度 y",
+          "group": "世界系加速度",
+          "unit": "m/s²",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "acc.z": {
+          "label": "世界系加速度 z",
+          "group": "世界系加速度",
+          "unit": "m/s²",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "position.x": {
+          "label": "世界系位姿 x",
+          "group": "世界系位姿",
+          "unit": "m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "position.y": {
+          "label": "世界系位姿 y",
+          "group": "世界系位姿",
+          "unit": "m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "position.yaw": {
+          "label": "世界系位姿 yaw",
+          "group": "世界系位姿",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "world_velocity.x": {
+          "label": "世界系速度 x",
+          "group": "世界系速度",
+          "unit": "m/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "world_velocity.y": {
+          "label": "世界系速度 y",
+          "group": "世界系速度",
+          "unit": "m/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "world_velocity.yaw": {
+          "label": "世界系速度 yaw",
+          "group": "世界系速度",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "body_velocity.x": {
+          "label": "机身系速度 x",
+          "group": "机身系速度",
+          "unit": "m/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "body_velocity.y": {
+          "label": "机身系速度 y",
+          "group": "机身系速度",
+          "unit": "m/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "body_velocity.yaw": {
+          "label": "机身系速度 yaw",
+          "group": "机身系速度",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "ultrasound.front": {
+          "label": "前方距离",
+          "group": "超声波",
+          "unit": "m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "ultrasound.rear": {
+          "label": "后方距离",
+          "group": "超声波",
+          "unit": "m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipX.position": {
+          "label": "FL_HipX 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipX.velocity": {
+          "label": "FL_HipX 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipX.torque": {
+          "label": "FL_HipX 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipX.temperature": {
+          "label": "FL_HipX 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipY.position": {
+          "label": "FL_HipY 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipY.velocity": {
+          "label": "FL_HipY 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipY.torque": {
+          "label": "FL_HipY 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_HipY.temperature": {
+          "label": "FL_HipY 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_Knee.position": {
+          "label": "FL_Knee 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_Knee.velocity": {
+          "label": "FL_Knee 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_Knee.torque": {
+          "label": "FL_Knee 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FL_Knee.temperature": {
+          "label": "FL_Knee 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipX.position": {
+          "label": "FR_HipX 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipX.velocity": {
+          "label": "FR_HipX 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipX.torque": {
+          "label": "FR_HipX 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipX.temperature": {
+          "label": "FR_HipX 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipY.position": {
+          "label": "FR_HipY 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipY.velocity": {
+          "label": "FR_HipY 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipY.torque": {
+          "label": "FR_HipY 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_HipY.temperature": {
+          "label": "FR_HipY 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_Knee.position": {
+          "label": "FR_Knee 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_Knee.velocity": {
+          "label": "FR_Knee 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_Knee.torque": {
+          "label": "FR_Knee 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.FR_Knee.temperature": {
+          "label": "FR_Knee 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipX.position": {
+          "label": "HL_HipX 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipX.velocity": {
+          "label": "HL_HipX 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipX.torque": {
+          "label": "HL_HipX 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipX.temperature": {
+          "label": "HL_HipX 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipY.position": {
+          "label": "HL_HipY 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipY.velocity": {
+          "label": "HL_HipY 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipY.torque": {
+          "label": "HL_HipY 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_HipY.temperature": {
+          "label": "HL_HipY 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_Knee.position": {
+          "label": "HL_Knee 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_Knee.velocity": {
+          "label": "HL_Knee 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_Knee.torque": {
+          "label": "HL_Knee 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HL_Knee.temperature": {
+          "label": "HL_Knee 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipX.position": {
+          "label": "HR_HipX 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipX.velocity": {
+          "label": "HR_HipX 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipX.torque": {
+          "label": "HR_HipX 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipX.temperature": {
+          "label": "HR_HipX 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipY.position": {
+          "label": "HR_HipY 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipY.velocity": {
+          "label": "HR_HipY 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipY.torque": {
+          "label": "HR_HipY 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_HipY.temperature": {
+          "label": "HR_HipY 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_Knee.position": {
+          "label": "HR_Knee 角度",
+          "group": "关节",
+          "unit": "rad",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_Knee.velocity": {
+          "label": "HR_Knee 角速度",
+          "group": "关节",
+          "unit": "rad/s",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_Knee.torque": {
+          "label": "HR_Knee 扭矩",
+          "group": "关节",
+          "unit": "N·m",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "joint.HR_Knee.temperature": {
+          "label": "HR_Knee 温度",
+          "group": "关节",
+          "unit": "°C",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FL.x": {
+          "label": "FL 足端力 x",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FL.y": {
+          "label": "FL 足端力 y",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FL.z": {
+          "label": "FL 足端力 z",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FR.x": {
+          "label": "FR 足端力 x",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FR.y": {
+          "label": "FR 足端力 y",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.FR.z": {
+          "label": "FR 足端力 z",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HL.x": {
+          "label": "HL 足端力 x",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HL.y": {
+          "label": "HL 足端力 y",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HL.z": {
+          "label": "HL 足端力 z",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HR.x": {
+          "label": "HR 足端力 x",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HR.y": {
+          "label": "HR 足端力 y",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "force.HR.z": {
+          "label": "HR 足端力 z",
+          "group": "SDK 接触力",
+          "unit": "SDK 原值",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "sdk.tick": {
+          "label": "SDK 时标",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "sdk.imu_timestamp": {
+          "label": "IMU 时标",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "log.motion_hint": {
+          "label": "日志动作提示",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "log.gyro_connected": {
+          "label": "日志陀螺仪连接",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "log.voltage_normal": {
+          "label": "日志电压正常",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        },
+        "log.wifi_connected": {
+          "label": "日志控制端连接",
+          "group": "诊断",
+          "unit": "",
+          "supported": true,
+          "status": "unavailable"
+        }
+      },
+      "connections": {},
+      "metadata": {
+        "data_directory": "D:\\工作台\\机器狗\\X30控制脚本\\交接包\\lite3-smoke-z8wo3hho",
+        "version": "0.2.2",
+        "startup_receive_only": true,
+        "startup_autoconnect": false
+      },
+      "packet_counts": {},
+      "events": [],
+      "robot": {},
+      "capabilities": {
+        "read_telemetry": true,
+        "camera": true,
+        "motion_control": false,
+        "mcp_motion_control": false,
+        "adapters": [
+          "lite3"
+        ]
+      },
+      "control": {
+        "armed": false,
+        "direction": null,
+        "message": "未连接",
+        "operator_posture": null,
+        "busy": false
+      }
+    }
+  }
+}

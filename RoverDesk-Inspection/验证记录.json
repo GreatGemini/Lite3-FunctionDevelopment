@@ -1,0 +1,12 @@
+{
+  "version": "0.3.0-inspection",
+  "offline_tests_passed": 140,
+  "new_inspection_tests": 16,
+  "startup_smoke_passed": true,
+  "inspection_ui_screenshot": "qa/inspection-page.png",
+  "motion_implementation_changed": false,
+  "real_robot_motion_tested": false,
+  "live_cloud_api_tested": false,
+  "cloud_testing": "Synthetic images and mocked Responses API replies; API Key must be configured by user",
+  "dependency_mode": "References original handover Python and vendor on this computer"
+}

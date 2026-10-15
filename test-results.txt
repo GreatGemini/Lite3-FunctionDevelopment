@@ -1,0 +1,135 @@
+test_battery_boundaries_and_recovery (test_alarms.AlarmTests.test_battery_boundaries_and_recovery) ... ok
+test_history_does_not_repeat_and_invalid_battery (test_alarms.AlarmTests.test_history_does_not_repeat_and_invalid_battery) ... ok
+test_network_grace_disconnect_and_unknown_hardware (test_alarms.AlarmTests.test_network_grace_disconnect_and_unknown_hardware) ... ok
+test_protection_is_not_inferred_cause (test_alarms.AlarmTests.test_protection_is_not_inferred_cause) ... ok
+test_sound_cadence_preemption_and_mute (test_alarms.AlarmTests.test_sound_cadence_preemption_and_mute) ... ok
+test_stale_is_unknown_not_recovered (test_alarms.AlarmTests.test_stale_is_unknown_not_recovered) ... ok
+test_actual_transport_only_loopback (test_control_session.ControlSessionTests.test_actual_transport_only_loopback) ... ok
+test_all_directions_and_dead_zones (test_control_session.ControlSessionTests.test_all_directions_and_dead_zones) ... ok
+test_arm_heartbeat_no_motion (test_control_session.ControlSessionTests.test_arm_heartbeat_no_motion) ... ok
+test_close_stops_then_ends_session (test_control_session.ControlSessionTests.test_close_stops_then_ends_session) ... ok
+test_deadman_stops_without_ui_renewal (test_control_session.ControlSessionTests.test_deadman_stops_without_ui_renewal) ... ok
+test_estop_available_without_arming (test_control_session.ControlSessionTests.test_estop_available_without_arming) ... ok
+test_focus_does_not_interrupt_discrete_action (test_control_session.ControlSessionTests.test_focus_does_not_interrupt_discrete_action) ... ok
+test_focus_locks_input_but_keeps_heartbeat (test_control_session.ControlSessionTests.test_focus_locks_input_but_keeps_heartbeat) ... ok
+test_focus_stops_translation (test_control_session.ControlSessionTests.test_focus_stops_translation) ... ok
+test_idle_and_close_are_silent (test_control_session.ControlSessionTests.test_idle_and_close_are_silent) ... ok
+test_known_protection_cannot_be_overridden (test_control_session.ControlSessionTests.test_known_protection_cannot_be_overridden) ... ok
+test_packet_negative_axis (test_control_session.ControlSessionTests.test_packet_negative_axis) ... ok
+test_protection_during_control_disarms (test_control_session.ControlSessionTests.test_protection_during_control_disarms) ... ok
+test_protection_keeps_connection_not_motion (test_control_session.ControlSessionTests.test_protection_keeps_connection_not_motion) ... ok
+test_release_and_disarm_clear_all_axes (test_control_session.ControlSessionTests.test_release_and_disarm_clear_all_axes) ... ok
+test_same_posture_never_toggles (test_control_session.ControlSessionTests.test_same_posture_never_toggles) ... ok
+test_speed_levels_bounds_signs_and_no_send (test_control_session.ControlSessionTests.test_speed_levels_bounds_signs_and_no_send) ... ok
+test_speed_transmitted_and_cannot_change_while_moving (test_control_session.ControlSessionTests.test_speed_transmitted_and_cannot_change_while_moving) ... ok
+test_stale_telemetry_disarms (test_control_session.ControlSessionTests.test_stale_telemetry_disarms) ... ok
+test_stand_completion_without_injected_stop (test_control_session.ControlSessionTests.test_stand_completion_without_injected_stop) ... ok
+test_toggle_once_and_cooldown (test_control_session.ControlSessionTests.test_toggle_once_and_cooldown) ... ok
+test_unknown_action_times_out_and_locks_but_retains_heartbeat (test_control_session.ControlSessionTests.test_unknown_action_times_out_and_locks_but_retains_heartbeat) ... ok
+test_unknown_requires_local_posture_confirmation (test_control_session.ControlSessionTests.test_unknown_requires_local_posture_confirmation) ... ok
+test_actual_transport_only_loopback (test_motion.MotionTests.test_actual_transport_only_loopback) ... ok
+test_all_directions_and_dead_zones (test_motion.MotionTests.test_all_directions_and_dead_zones) ... ok
+test_arm_heartbeat_no_motion (test_motion.MotionTests.test_arm_heartbeat_no_motion) ... ok
+test_deadman_stops_without_ui_renewal (test_motion.MotionTests.test_deadman_stops_without_ui_renewal) ... ok
+test_estop_available_without_arming (test_motion.MotionTests.test_estop_available_without_arming) ... ok
+test_idle_and_close_are_silent (test_motion.MotionTests.test_idle_and_close_are_silent) ... ok
+test_known_protection_cannot_be_overridden (test_motion.MotionTests.test_known_protection_cannot_be_overridden) ... ok
+test_packet_negative_axis (test_motion.MotionTests.test_packet_negative_axis) ... ok
+test_protection_during_control_disarms (test_motion.MotionTests.test_protection_during_control_disarms) ... ok
+test_release_and_disarm_clear_all_axes (test_motion.MotionTests.test_release_and_disarm_clear_all_axes) ... ok
+test_same_posture_never_toggles (test_motion.MotionTests.test_same_posture_never_toggles) ... ok
+test_speed_levels_bounds_signs_and_no_send (test_motion.MotionTests.test_speed_levels_bounds_signs_and_no_send) ... ok
+test_speed_transmitted_and_cannot_change_while_moving (test_motion.MotionTests.test_speed_transmitted_and_cannot_change_while_moving) ... ok
+test_stale_telemetry_disarms (test_motion.MotionTests.test_stale_telemetry_disarms) ... ok
+test_toggle_once_and_cooldown (test_motion.MotionTests.test_toggle_once_and_cooldown) ... ok
+test_unknown_requires_local_posture_confirmation (test_motion.MotionTests.test_unknown_requires_local_posture_confirmation) ... ok
+test_aligned_state_fields_and_placeholders (test_core.ProtocolTests.test_aligned_state_fields_and_placeholders) ... ok
+test_documented_joint_fixture (test_core.ProtocolTests.test_documented_joint_fixture) ... ok
+test_malformed_and_unknown (test_core.ProtocolTests.test_malformed_and_unknown) ... ok
+test_nan_rejected (test_core.ProtocolTests.test_nan_rejected) ... ok
+test_sdk_padding_variants_units (test_core.ProtocolTests.test_sdk_padding_variants_units) ... ok
+test_speaker (test_core.ProtocolTests.test_speaker) ... ok
+test_expiry_and_no_placeholder_data (test_core.StateTests.test_expiry_and_no_placeholder_data) ... ok
+test_log_fields (test_core.StateTests.test_log_fields) ... ok
+test_log_hint_not_state (test_core.StateTests.test_log_hint_not_state) ... ok
+test_snapshot_independent (test_core.StateTests.test_snapshot_independent) ... ok
+test_readonly_authenticated_mcp (test_mcp.MCPTests.test_readonly_authenticated_mcp) ... StreamableHTTP session manager started
+HTTP Request: POST http://127.0.0.1:38819/mcp "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:38819/mcp "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:38819/mcp "HTTP/1.1 200 OK"
+HTTP Request: POST http://127.0.0.1:38819/mcp "HTTP/1.1 200 OK"
+ok
+test_actual_transport_only_loopback (test_motion.MotionTests.test_actual_transport_only_loopback) ... ok
+test_all_directions_and_dead_zones (test_motion.MotionTests.test_all_directions_and_dead_zones) ... ok
+test_arm_heartbeat_no_motion (test_motion.MotionTests.test_arm_heartbeat_no_motion) ... ok
+test_deadman_stops_without_ui_renewal (test_motion.MotionTests.test_deadman_stops_without_ui_renewal) ... ok
+test_estop_available_without_arming (test_motion.MotionTests.test_estop_available_without_arming) ... ok
+test_idle_and_close_are_silent (test_motion.MotionTests.test_idle_and_close_are_silent) ... ok
+test_known_protection_cannot_be_overridden (test_motion.MotionTests.test_known_protection_cannot_be_overridden) ... ok
+test_packet_negative_axis (test_motion.MotionTests.test_packet_negative_axis) ... ok
+test_protection_during_control_disarms (test_motion.MotionTests.test_protection_during_control_disarms) ... ok
+test_release_and_disarm_clear_all_axes (test_motion.MotionTests.test_release_and_disarm_clear_all_axes) ... ok
+test_same_posture_never_toggles (test_motion.MotionTests.test_same_posture_never_toggles) ... ok
+test_speed_levels_bounds_signs_and_no_send (test_motion.MotionTests.test_speed_levels_bounds_signs_and_no_send) ... ok
+test_speed_transmitted_and_cannot_change_while_moving (test_motion.MotionTests.test_speed_transmitted_and_cannot_change_while_moving) ... ok
+test_stale_telemetry_disarms (test_motion.MotionTests.test_stale_telemetry_disarms) ... ok
+test_toggle_once_and_cooldown (test_motion.MotionTests.test_toggle_once_and_cooldown) ... ok
+test_unknown_requires_local_posture_confirmation (test_motion.MotionTests.test_unknown_requires_local_posture_confirmation) ... ok
+test_arm_hold_release_focus_loss (test_motion_ui.MotionUITests.test_arm_hold_release_focus_loss) ... StreamableHTTP session manager shutting down
+ok
+test_pose_display_follows_fresh_telemetry (test_motion_ui.MotionUITests.test_pose_display_follows_fresh_telemetry) ... ok
+test_speed_slider_updates_without_motion_and_resets_on_disconnect (test_motion_ui.MotionUITests.test_speed_slider_updates_without_motion_and_resets_on_disconnect) ... ok
+test_unknown_pose_and_ui_arm_not_automatic (test_motion_ui.MotionUITests.test_unknown_pose_and_ui_arm_not_automatic) ... ok
+test_actual_transport_only_loopback (test_motion.MotionTests.test_actual_transport_only_loopback) ... ok
+test_all_directions_and_dead_zones (test_motion.MotionTests.test_all_directions_and_dead_zones) ... ok
+test_arm_heartbeat_no_motion (test_motion.MotionTests.test_arm_heartbeat_no_motion) ... ok
+test_deadman_stops_without_ui_renewal (test_motion.MotionTests.test_deadman_stops_without_ui_renewal) ... ok
+test_estop_available_without_arming (test_motion.MotionTests.test_estop_available_without_arming) ... ok
+test_idle_and_close_are_silent (test_motion.MotionTests.test_idle_and_close_are_silent) ... ok
+test_known_protection_cannot_be_overridden (test_motion.MotionTests.test_known_protection_cannot_be_overridden) ... ok
+test_packet_negative_axis (test_motion.MotionTests.test_packet_negative_axis) ... ok
+test_protection_during_control_disarms (test_motion.MotionTests.test_protection_during_control_disarms) ... ok
+test_release_and_disarm_clear_all_axes (test_motion.MotionTests.test_release_and_disarm_clear_all_axes) ... ok
+test_same_posture_never_toggles (test_motion.MotionTests.test_same_posture_never_toggles) ... ok
+test_speed_levels_bounds_signs_and_no_send (test_motion.MotionTests.test_speed_levels_bounds_signs_and_no_send) ... ok
+test_speed_transmitted_and_cannot_change_while_moving (test_motion.MotionTests.test_speed_transmitted_and_cannot_change_while_moving) ... ok
+test_stale_telemetry_disarms (test_motion.MotionTests.test_stale_telemetry_disarms) ... ok
+test_toggle_once_and_cooldown (test_motion.MotionTests.test_toggle_once_and_cooldown) ... ok
+test_unknown_requires_local_posture_confirmation (test_motion.MotionTests.test_unknown_requires_local_posture_confirmation) ... ok
+test_arm_hold_release_focus_loss (test_motion_ui.MotionUITests.test_arm_hold_release_focus_loss) ... ok
+test_pose_display_follows_fresh_telemetry (test_motion_ui.MotionUITests.test_pose_display_follows_fresh_telemetry) ... ok
+test_speed_slider_updates_without_motion_and_resets_on_disconnect (test_motion_ui.MotionUITests.test_speed_slider_updates_without_motion_and_resets_on_disconnect) ... ok
+test_unknown_pose_and_ui_arm_not_automatic (test_motion_ui.MotionUITests.test_unknown_pose_and_ui_arm_not_automatic) ... ok
+test_actual_transport_only_loopback (test_text_commands.TextControllerTests.test_actual_transport_only_loopback) ... ok
+test_all_directions_and_dead_zones (test_text_commands.TextControllerTests.test_all_directions_and_dead_zones) ... ok
+test_all_documented_commands (test_text_commands.TextControllerTests.test_all_documented_commands) ... ok
+test_arm_heartbeat_no_motion (test_text_commands.TextControllerTests.test_arm_heartbeat_no_motion) ... ok
+test_deadman_stops_without_ui_renewal (test_text_commands.TextControllerTests.test_deadman_stops_without_ui_renewal) ... ok
+test_estop_available_without_arming (test_text_commands.TextControllerTests.test_estop_available_without_arming) ... ok
+test_idle_and_close_are_silent (test_text_commands.TextControllerTests.test_idle_and_close_are_silent) ... ok
+test_known_protection_cannot_be_overridden (test_text_commands.TextControllerTests.test_known_protection_cannot_be_overridden) ... ok
+test_packet_negative_axis (test_text_commands.TextControllerTests.test_packet_negative_axis) ... ok
+test_protection_during_control_disarms (test_text_commands.TextControllerTests.test_protection_during_control_disarms) ... ok
+test_reject_ambiguous_and_unarmed (test_text_commands.TextControllerTests.test_reject_ambiguous_and_unarmed) ... ok
+test_release_and_disarm_clear_all_axes (test_text_commands.TextControllerTests.test_release_and_disarm_clear_all_axes) ... ok
+test_same_posture_never_toggles (test_text_commands.TextControllerTests.test_same_posture_never_toggles) ... ok
+test_speed_levels_bounds_signs_and_no_send (test_text_commands.TextControllerTests.test_speed_levels_bounds_signs_and_no_send) ... ok
+test_speed_transmitted_and_cannot_change_while_moving (test_text_commands.TextControllerTests.test_speed_transmitted_and_cannot_change_while_moving) ... ok
+test_stale_telemetry_disarms (test_text_commands.TextControllerTests.test_stale_telemetry_disarms) ... ok
+test_stop_on_disarm_and_stale (test_text_commands.TextControllerTests.test_stop_on_disarm_and_stale) ... ok
+test_stop_timeout_and_no_retry (test_text_commands.TextControllerTests.test_stop_timeout_and_no_retry) ... ok
+test_stop_works_when_locked (test_text_commands.TextControllerTests.test_stop_works_when_locked) ... ok
+test_toggle_once_and_cooldown (test_text_commands.TextControllerTests.test_toggle_once_and_cooldown) ... ok
+test_unknown_requires_local_posture_confirmation (test_text_commands.TextControllerTests.test_unknown_requires_local_posture_confirmation) ... ok
+test_arm_hold_release_focus_loss (test_text_commands.TextUITests.test_arm_hold_release_focus_loss) ... ok
+test_fill_does_not_execute_and_explicit_execute (test_text_commands.TextUITests.test_fill_does_not_execute_and_explicit_execute) ... ok
+test_pose_display_follows_fresh_telemetry (test_text_commands.TextUITests.test_pose_display_follows_fresh_telemetry) ... ok
+test_speed_slider_updates_without_motion_and_resets_on_disconnect (test_text_commands.TextUITests.test_speed_slider_updates_without_motion_and_resets_on_disconnect) ... ok
+test_unknown_pose_and_ui_arm_not_automatic (test_text_commands.TextUITests.test_unknown_pose_and_ui_arm_not_automatic) ... ok
+test_disconnect_immediately_invalidates (test_transport.TransportTests.test_disconnect_immediately_invalidates) ... ok
+test_udp_receives_secondary_local_address_and_shutdown (test_transport.TransportTests.test_udp_receives_secondary_local_address_and_shutdown) ... ok
+
+----------------------------------------------------------------------
+Ran 124 tests in 7.789s
+
+OK

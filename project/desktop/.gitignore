@@ -1,0 +1,7 @@
+vendor/
+build/
+release/
+qa-data/
+__pycache__/
+*.pyc
+*.log

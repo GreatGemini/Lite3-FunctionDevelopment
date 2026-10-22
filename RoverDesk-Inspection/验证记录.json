@@ -1,12 +1,15 @@
 {
-  "version": "0.3.0-inspection",
-  "offline_tests_passed": 140,
-  "new_inspection_tests": 16,
-  "startup_smoke_passed": true,
-  "inspection_ui_screenshot": "qa/inspection-page.png",
-  "motion_implementation_changed": false,
+  "version": "0.5.0",
+  "offline_tests_passed": 189,
+  "startup_cmd_smoke_passed": true,
+  "communication_ui_screenshot": "qa/communication-page.png",
   "real_robot_motion_tested": false,
   "live_cloud_api_tested": false,
-  "cloud_testing": "Synthetic images and mocked Responses API replies; API Key must be configured by user",
-  "dependency_mode": "References original handover Python and vendor on this computer"
+  "local_commands_require_api_key": false,
+  "cloud_result_auto_executes": false,
+  "mcp_read_only": true,
+  "cloud_testing": "Mocked Responses API replies only",
+  "dependency_mode": "Uses handover Python and vendor on this computer",
+  "ios_manual_light_screenshot": "qa/ios-manual-light.png",
+  "ios_manual_dark_screenshot": "qa/ios-manual-dark.png"
 }

@@ -26,8 +26,8 @@ def main():
         font_path=Path(os.environ.get('WINDIR','C:/Windows'))/'Fonts'/font
         if font_path.exists():QFontDatabase.addApplicationFont(str(font_path))
     app.setFont(QFont('Microsoft YaHei',10))
-    runtime=Runtime(data/'known_hosts');runtime.app_info={'data_directory':str(data.resolve()),'version':'0.3.0-inspection','startup_receive_only':True,'startup_autoconnect':bool(args.autoconnect and not args.no_autoconnect)};bridge=MCPBridge(runtime,data,args.mcp_port);bridge.start()
-    window=MainWindow(runtime,bridge,data,profiles);window.tabs.setCurrentWidget(window.inspection_panel);window.show()
+    runtime=Runtime(data/'known_hosts');runtime.app_info={'data_directory':str(data.resolve()),'version':'0.5.0','startup_receive_only':True,'startup_autoconnect':bool(args.autoconnect and not args.no_autoconnect)};bridge=MCPBridge(runtime,data,args.mcp_port);bridge.start()
+    window=MainWindow(runtime,bridge,data,profiles);window.section_tabs.setCurrentIndex(0);window.tabs.setCurrentIndex(0);window.show()
     secret=os.environ.pop('ROVER_SSH_PASSWORD','')
     if args.autoconnect and not args.no_autoconnect:QTimer.singleShot(150,lambda:window.connect_robot(secret))
     def finish():

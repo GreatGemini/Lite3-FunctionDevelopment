@@ -2,27 +2,16 @@ import ipaddress,json,time
 from pathlib import Path
 from urllib.parse import urlparse
 from PySide6.QtCore import Qt,QTimer,QEvent,QSize
-from PySide6.QtGui import QPixmap,QColor,QShortcut,QKeySequence,QIcon,QPainter,QPen,QPainterPath
+from PySide6.QtGui import QPixmap,QColor,QShortcut,QKeySequence,QIcon,QPainter,QPen,QPainterPath,QPalette
 from PySide6.QtWidgets import *
 from .model import FIELDS,JOINTS,display
 from .motion import MotionError,MotionController
 from .text_commands import COMMANDS,parse_command
 from .alarms import AlarmMonitor,AlarmAudio
 from .inspection_ui import InspectionPanel
-STYLE="""
-*{font-family:'Microsoft YaHei','Segoe UI';font-size:13px;}QMainWindow,QDialog{background:#0c121b;}QWidget{color:#dfe8f3;}
-QFrame#side{background:#111b28;border-right:1px solid #273345;}QFrame#panel{background:#141f2e;border:1px solid #29364a;border-radius:12px;}
-QLabel#muted{color:#91a4bb;font-size:12px;}QLabel#title{font-size:26px;font-weight:700;}QLabel#brand{color:#63e4cd;font-size:22px;font-weight:800;}
-QLabel#value{font-size:29px;font-weight:700;}QLabel#video{background:#080d14;border:1px solid #253447;border-radius:10px;color:#8498b1;}
-QLabel#pill{background:#20363b;color:#70e6d0;border-radius:7px;padding:7px;}
-QPushButton{background:#25354b;border:1px solid #354962;border-radius:7px;padding:8px 13px;}QPushButton:hover{background:#314761;}
-QPushButton#primary{background:#55ddc4;color:#0b2424;border:none;font-weight:bold;}QPushButton:disabled{background:#182230;color:#526277;border-color:#263244;}
-QComboBox,QLineEdit{background:#0c1521;border:1px solid #344660;padding:8px;border-radius:6px;}QComboBox QAbstractItemView{background:#182536;}
-QTabWidget::pane{border:none;}QTabBar::tab{color:#91a4bb;padding:11px 18px;border-bottom:2px solid transparent;}QTabBar::tab:selected{color:#67e4ce;border-bottom:2px solid #67e4ce;}
-QTableWidget{background:#121d2b;alternate-background-color:#162333;border:1px solid #27364a;gridline-color:#223146;selection-background-color:#274754;}
-QHeaderView::section{background:#1e2c3e;color:#99aec8;border:none;padding:9px;}QTextEdit{background:#111c2a;border:1px solid #293b52;border-radius:8px;padding:10px;}
-QScrollBar:vertical{background:#101925;width:10px;}QScrollBar::handle:vertical{background:#364b63;min-height:28px;border-radius:5px;}
-"""
+from .communication_ui import CommunicationPanel
+from .appearance import colors_for,qt_palette,stylesheet
+from .remote_control import DirectionPad,ToggleSwitch
 STATUS={'live':'实时','inferred':'日志推断','stale':'已过期','unavailable':'未收到','unsupported':'不支持'}
 def label(text,kind=None):
     w=QLabel(text)
@@ -32,10 +21,10 @@ def table(headers):
     t=QTableWidget(0,len(headers));t.setHorizontalHeaderLabels(headers);t.setAlternatingRowColors(True);t.setEditTriggers(QTableWidget.NoEditTriggers)
     t.setSelectionBehavior(QTableWidget.SelectRows);t.verticalHeader().hide();t.verticalHeader().setDefaultSectionSize(29)
     t.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents);t.horizontalHeader().setStretchLastSection(True);return t
-def cell(t,r,c,text,color='#dfe8f3'):
+def cell(t,r,c,text,color=None):
     item=t.item(r,c)
     if item is None:item=QTableWidgetItem();t.setItem(r,c,item)
-    item.setText(str(text));item.setForeground(QColor(color))
+    item.setText(str(text));item.setForeground(QColor(color) if color else t.palette().color(QPalette.Text))
 def panel(title):
     box=QFrame();box.setObjectName('panel');lay=QVBoxLayout(box);lay.setContentsMargins(17,14,17,14);lay.addWidget(label(title));return box,lay
 def button(text,fn,primary=False):
@@ -43,10 +32,10 @@ def button(text,fn,primary=False):
     if primary:b.setObjectName('primary')
     return b
 
-def direction_icon(direction):
+def direction_icon(direction,color='#1c1c1e'):
     pixmap=QPixmap(32,32);pixmap.fill(Qt.transparent)
     painter=QPainter(pixmap);painter.setRenderHint(QPainter.Antialiasing)
-    pen=QPen(QColor('#dfe8f3'),2.7);pen.setCapStyle(Qt.RoundCap);pen.setJoinStyle(Qt.RoundJoin);painter.setPen(pen)
+    pen=QPen(QColor(color),2.7);pen.setCapStyle(Qt.RoundCap);pen.setJoinStyle(Qt.RoundJoin);painter.setPen(pen)
     if direction.startswith('turn_'):
         if direction=='turn_left':painter.translate(32,0);painter.scale(-1,1)
         path=QPainterPath();path.moveTo(7,26);path.lineTo(7,16);path.cubicTo(7,4,25,4,25,16)
@@ -77,10 +66,11 @@ class ProfileDialog(QDialog):
 class MainWindow(QMainWindow):
     def __init__(self,runtime,bridge,data_dir,profiles):
         super().__init__();self.runtime=runtime;self.bridge=bridge;self.data_dir=Path(data_dir);self.profiles=profiles
-        self.hold_button=None;self.hold_direction=None;self.last_frame=0;self.pixmap=None;self.setWindowTitle('Rover Desk · 机器狗工作台');self.resize(1460,940);self.setMinimumSize(1120,850);self.setStyleSheet(STYLE)
+        self.hold_button=None;self.hold_direction=None;self.last_frame=0;self.pixmap=None;self.setWindowTitle('Rover Desk · 机器狗工作台');self.resize(1460,940);self.setMinimumSize(1120,850)
+        self.colors=colors_for('system');self.setPalette(qt_palette(self.colors));self.setStyleSheet(stylesheet(self.colors))
         base=QWidget();self.setCentralWidget(base);row=QHBoxLayout(base);row.setContentsMargins(0,0,0,0);row.setSpacing(0)
         side=QFrame();side.setObjectName('side');side.setFixedWidth(225);sl=QVBoxLayout(side);sl.setContentsMargins(19,27,19,23);sl.setSpacing(13)
-        sl.addWidget(label('ROVER DESK','brand'));sl.addWidget(label('机器狗工作台  /  0.3.0 巡检版','muted'));sl.addSpacing(22);sl.addWidget(label('设备连接','muted'))
+        sl.addWidget(label('Rover Desk','brand'));sl.addWidget(label('机器狗工作台  /  0.5.0','muted'));sl.addSpacing(18);sl.addWidget(label('设备连接','muted'))
         self.select=QComboBox();self.select.addItems([p['name'] for p in profiles]);sl.addWidget(self.select);self.hostlabel=label(profiles[0]['robot_ip'],'muted');sl.addWidget(self.hostlabel)
         sl.addWidget(button('编辑连接',self.edit_profile));sl.addWidget(button('＋ 添加设备配置',self.add_profile));sl.addSpacing(10);sl.addWidget(label('SSH 密码 · 仅本次会话','muted'))
         self.password=QLineEdit();self.password.setEchoMode(QLineEdit.Password);self.password.setPlaceholderText('请输入密码');sl.addWidget(self.password)
@@ -89,60 +79,98 @@ class MainWindow(QMainWindow):
         sl.addWidget(button('连接设备',self.connect_robot,True));sl.addWidget(button('断开连接',self.disconnect_robot));sl.addSpacing(14);self.links={}
         for name in ('UDP','SSH','摄像头'):
             w=label(name+' · 未连接','muted');w.setWordWrap(True);self.links[name]=w;sl.addWidget(w)
-        sl.addStretch();sl.addWidget(label('DESKTOP CONTROL','pill'));note=label('桌面遥控默认锁定。\nAI / MCP 保持只读。','muted');note.setWordWrap(True);sl.addWidget(note);row.addWidget(side)
+        sl.addStretch();sl.addWidget(label('外观','muted'));self.appearance_choice=QComboBox();self.appearance_choice.addItems(['跟随系统','浅色','深色']);sl.addWidget(self.appearance_choice)
+        try:appearance=json.loads((self.data_dir/'appearance.json').read_text(encoding='utf-8')).get('mode','system')
+        except (OSError,ValueError):appearance='system'
+        self.appearance_choice.setCurrentIndex({'system':0,'light':1,'dark':2}.get(appearance,0))
+        self.appearance_choice.currentIndexChanged.connect(lambda index:self.apply_appearance(True))
+        note=label('桌面遥控默认锁定。\nAI / MCP 保持只读。','muted');note.setWordWrap(True);sl.addWidget(note);row.addWidget(side)
         content=QWidget();cl=QVBoxLayout(content);cl.setContentsMargins(27,22,27,16);cl.setSpacing(13);row.addWidget(content,1)
-        top=QHBoxLayout();titles=QVBoxLayout();titles.addWidget(label('机器人状态中心','title'));self.subtitle=label('连接机器狗，查看实时状态与摄像头','muted');titles.addWidget(self.subtitle);top.addLayout(titles);top.addStretch()
+        top=QHBoxLayout();titles=QVBoxLayout();titles.addWidget(label('机器狗工作台','title'));self.subtitle=label('连接机器狗，查看实时状态与摄像头','muted');titles.addWidget(self.subtitle);top.addLayout(titles);top.addStretch()
         self.coverage=label('等待连接','pill');top.addWidget(self.coverage);cl.addLayout(top)
         self.notice=label('遥控默认关闭 · 启用后按住移动、松开停止；不会修改机器人的持久配置。','muted');self.notice.setWordWrap(True);cl.addWidget(self.notice)
         self.alarm_monitor=AlarmMonitor();self.alarm_audio=AlarmAudio()
-        self.tabs=QTabWidget();cl.addWidget(self.tabs,1);self.make_overview();self.make_text_commands();self.make_alarms();self.make_fields();self.make_joints();self.make_diagnostics();self.make_mcp()
-        self.inspection_panel=InspectionPanel(runtime,self.data_dir,self);self.tabs.addTab(self.inspection_panel,'房间巡检')
+        self.section_tabs=QTabWidget();self.section_tabs.setObjectName('workspaceSections');cl.addWidget(self.section_tabs,1)
+        details=QWidget();details_layout=QVBoxLayout(details);details_layout.setContentsMargins(0,5,0,0)
+        self.tabs=QTabWidget();self.tabs.setObjectName('robotDetailsTabs');details_layout.addWidget(self.tabs)
+        functions=QWidget();functions_layout=QVBoxLayout(functions);functions_layout.setContentsMargins(0,5,0,0)
+        self.feature_tabs=QTabWidget();self.feature_tabs.setObjectName('robotFunctionsTabs');functions_layout.addWidget(self.feature_tabs)
+        self.section_tabs.addTab(details,'机器狗详情');self.section_tabs.addTab(functions,'机器狗功能开发')
+        self.make_overview();self.make_text_commands();self.make_alarms();self.make_fields();self.make_joints();self.make_diagnostics();self.make_mcp()
+        self.inspection_panel=InspectionPanel(runtime,self.data_dir,self);self.feature_tabs.addTab(self.inspection_panel,'房间巡检')
+        self.communicate_panel=CommunicationPanel(runtime,self.stop_motion,self);self.feature_tabs.insertTab(2,self.communicate_panel,'与机器狗沟通')
+        self.section_tabs.currentChanged.connect(self.change_motion_tab);self.feature_tabs.currentChanged.connect(self.change_motion_tab)
         cl.addWidget(label('LOCAL WORKSPACE     •     状态 / 视频 / AI 只读接入','muted'))
         self.select.currentIndexChanged.connect(lambda:self.hostlabel.setText(self.profiles[self.select.currentIndex()]['robot_ip']))
         self.timer=QTimer(self);self.timer.timeout.connect(self.refresh);self.timer.start(250)
         self.hold_timer=QTimer(self);self.hold_timer.timeout.connect(self.renew_motion);self.hold_timer.start(40)
         QApplication.instance().installEventFilter(self)
         self.stop_shortcut=QShortcut(QKeySequence('Escape'),self);self.stop_shortcut.activated.connect(self.stop_motion)
+        self.apply_appearance(False)
+        QApplication.styleHints().colorSchemeChanged.connect(self.system_appearance_changed)
+    def system_appearance_changed(self,scheme):
+        if self.appearance_choice.currentIndex()==0:self.apply_appearance(False)
+    def apply_appearance(self,save=False):
+        mode=('system','light','dark')[self.appearance_choice.currentIndex()]
+        self.colors=colors_for(mode);self.setPalette(qt_palette(self.colors));self.setStyleSheet(stylesheet(self.colors))
+        self.direction_pad.set_theme(self.colors);self.arm_box.colors=dict(self.colors);self.arm_box.update()
+        for direction in ('turn_left','turn_right'):self.icon_motion_buttons[direction].setIcon(direction_icon(direction,self.colors['text']))
+        if save:
+            try:(self.data_dir/'appearance.json').write_text(json.dumps({'mode':mode}),encoding='utf-8')
+            except OSError:self.notice.setText('外观已切换，但无法保存本机外观设置。')
+        self.refresh()
     def make_overview(self):
         page=QWidget();outer=QGridLayout(page);outer.setContentsMargins(0,10,0,0);outer.setHorizontalSpacing(15);outer.setVerticalSpacing(14);outer.setColumnStretch(0,3);outer.setColumnStretch(1,2);outer.setRowStretch(0,3);outer.setRowStretch(1,2)
         cam,lay=panel('摄像头 / LIVE VIEW');self.video=label('连接后显示摄像头画面','video');self.video.setAlignment(Qt.AlignCenter);self.video.setMinimumSize(450,290);lay.addWidget(self.video,1)
-        cb=QHBoxLayout();self.camera_info=label('尚未连接','muted');cb.addWidget(self.camera_info,1);cb.addWidget(button('保存当前画面',self.save_frame));lay.addLayout(cb);outer.addWidget(cam,0,0)
+        cb=QHBoxLayout();self.camera_info=label('尚未连接','muted');cb.addWidget(self.camera_info,1);cb.addWidget(button('保存当前画面',self.save_frame));lay.addLayout(cb);outer.addWidget(cam,0,0,2,1)
         metrics=QWidget();grid=QGridLayout(metrics);grid.setContentsMargins(0,0,0,0);grid.setSpacing(12);self.cards={}
         for i,(key,title) in enumerate([('battery.percent','电池电量'),('basic','基本状态'),('battery.voltage','电池电压'),('battery.temperature','电池温度')]):
             box,lay=panel(title);v=label('—','value');v.setWordWrap(True);lay.addWidget(v,1);s=label('未收到','muted');s.setWordWrap(True);lay.addWidget(s);self.cards[key]=(v,s);grid.addWidget(box,i//2,i%2)
         outer.addWidget(metrics,0,1);box,lay=panel('运动与感知状态')
         self.quick=table(['数据','值','质量']);self.quick_keys=['gait','motion','rpy.roll','rpy.pitch','rpy.yaw','ultrasound.front','ultrasound.rear','balance','zero','log.motion_hint'];self.quick.setRowCount(len(self.quick_keys));lay.addWidget(self.quick);outer.addWidget(box,1,1)
-        box,lay=panel('运动遥控 / 慢速步态');controls=QHBoxLayout()
-        self.arm_box=QCheckBox('启用遥控');self.arm_box.toggled.connect(self.toggle_motion);controls.addWidget(self.arm_box)
+        manual_page=QWidget();manual_layout=QHBoxLayout(manual_page);manual_layout.setContentsMargins(0,10,0,0);manual_layout.setSpacing(15)
+        camera_box,camera_layout=panel('摄像头 / LIVE VIEW')
+        self.control_video=label('连接后显示摄像头画面','video');self.control_video.setAlignment(Qt.AlignCenter);self.control_video.setMinimumSize(360,290);camera_layout.addWidget(self.control_video,1)
+        self.control_camera_info=label('尚未连接','muted');camera_layout.addWidget(self.control_camera_info)
+        self.control_status=label('姿态和电量：等待实时状态','muted');self.control_status.setWordWrap(True);camera_layout.addWidget(self.control_status);manual_layout.addWidget(camera_box,3)
+        box,lay=panel('运动遥控 / 慢速步态');box.setMinimumWidth(340);box.setMaximumWidth(420);lay.setSpacing(6);controls=QHBoxLayout()
+        self.arm_box=ToggleSwitch('启用遥控');self.arm_box.toggled.connect(self.toggle_motion);controls.addWidget(self.arm_box)
         self.pose_choice=QComboBox();self.pose_choice.addItems(['现场姿态：未确认','现场确认：已趴下','现场确认：已站立']);self.pose_choice.currentIndexChanged.connect(self.confirm_pose);controls.addWidget(self.pose_choice,1);self.pose_choice.hide();self.pose_auto=label('姿态：等待实时状态','muted');self.pose_auto.setWordWrap(True);controls.addWidget(self.pose_auto,1);lay.addLayout(controls)
         self.motion_status=label('遥控未启用','muted');self.motion_status.setWordWrap(True);lay.addWidget(self.motion_status)
         speed_row=QHBoxLayout();self.speed_text=label('速度档位：1 / 5','muted');speed_row.addWidget(self.speed_text)
         self.speed_slider=QSlider(Qt.Horizontal);self.speed_slider.setRange(1,5);self.speed_slider.setValue(1);self.speed_slider.setTickPosition(QSlider.TicksBelow);self.speed_slider.setTickInterval(1);self.speed_slider.setEnabled(False)
         self.speed_slider.setToolTip('低 → 高；调节移动和转弯的控制强度，不代表固定米/秒。先松开方向键再换档；重新连接恢复 1 档。')
         self.speed_slider.valueChanged.connect(self.change_speed);speed_row.addWidget(self.speed_slider,1);lay.addLayout(speed_row)
-        self.motion_tabs=QTabWidget();self.motion_tabs.setMinimumHeight(124);self.motion_tabs.setObjectName('motionControlTabs')
+        self.motion_tabs=QTabWidget();self.motion_tabs.setMinimumHeight(330);self.motion_tabs.setObjectName('motionControlTabs')
         text_page=QWidget();g=QGridLayout(text_page);g.setContentsMargins(0,5,0,5);g.setSpacing(5);self.motion_buttons={}
         for text,key,r,c in [('左转','turn_left',0,0),('前进','forward',0,1),('右转','turn_right',0,2),('左横移','left',1,0),('后退','backward',1,1),('右横移','right',1,2)]:
             b=QPushButton(text);b.setFocusPolicy(Qt.NoFocus);b.setEnabled(False);b.pressed.connect(lambda k=key,w=b:self.begin_motion(k,w));b.released.connect(self.stop_motion);g.addWidget(b,r,c);self.motion_buttons[key]=b
         self.motion_tabs.addTab(text_page,'文字按钮')
-        icon_page=QWidget();icon_page.setMinimumHeight(83);icons=QGridLayout(icon_page);icons.setContentsMargins(0,5,0,5);icons.setSpacing(5);self.icon_motion_buttons={}
-        for glyph,key,name,r,c in [('↶','turn_left','左转',0,0),('↑','forward','前进',0,1),('↷','turn_right','右转',0,2),('←','left','左横移',1,0),('→','right','右横移',1,2),('↓','backward','后退',1,1)]:
-            b=QPushButton();b.setIcon(direction_icon(key));b.setIconSize(QSize(26,26));b.setFocusPolicy(Qt.NoFocus);b.setEnabled(False);b.setMinimumHeight(34)
-            b.setAccessibleName(name);b.setToolTip(name+'：按住移动，松开停止');b.setStyleSheet('padding:2px 10px;')
+        icon_page=QWidget();icons=QVBoxLayout(icon_page);icons.setContentsMargins(0,2,0,2);icons.setSpacing(5)
+        self.direction_pad=DirectionPad();icons.addWidget(self.direction_pad,0,Qt.AlignHCenter)
+        self.icon_motion_buttons=dict(self.direction_pad.buttons);self.direction_pad.center_stop.clicked.connect(self.stop_motion)
+        for key,b in self.direction_pad.buttons.items():
             b.pressed.connect(lambda k=key,w=b:self.begin_motion(k,w));b.released.connect(self.stop_motion)
-            icons.addWidget(b,r,c);self.icon_motion_buttons[key]=b
-        self.motion_tabs.addTab(icon_page,'方向图标');self.motion_tabs.currentChanged.connect(self.change_motion_tab);lay.addWidget(self.motion_tabs)
+        turn_row=QHBoxLayout();turn_row.setContentsMargins(14,0,14,0)
+        for key,name in [('turn_left','左转'),('turn_right','右转')]:
+            b=QPushButton();b.setObjectName('roundTurn');b.setFixedSize(56,56);b.setIconSize(QSize(26,26));b.setIcon(direction_icon(key));b.setFocusPolicy(Qt.NoFocus);b.setEnabled(False)
+            b.setAccessibleName(name);b.setToolTip(name+'：按住转弯，松开停止')
+            b.pressed.connect(lambda k=key,w=b:self.begin_motion(k,w));b.released.connect(self.stop_motion)
+            turn_row.addWidget(b);self.icon_motion_buttons[key]=b
+            if key=='turn_left':turn_row.addWidget(label('左转 / 右转','muted'),1,Qt.AlignCenter)
+        icons.addLayout(turn_row)
+        self.motion_tabs.addTab(icon_page,'方向图标');self.motion_tabs.setCurrentIndex(1);self.motion_tabs.currentChanged.connect(self.change_motion_tab);lay.addWidget(self.motion_tabs)
         posture_row=QHBoxLayout()
         for text,target in [('起立','stand'),('趴下','sit')]:
             b=button(text,lambda checked=False,t=target:self.posture_motion(t));posture_row.addWidget(b);self.motion_buttons[target]=b
             if target=='stand':posture_row.addWidget(button('停止 / Esc',self.stop_motion))
         lay.addLayout(posture_row)
-        self.estop_button=button('软件急停',self.emergency_motion);self.estop_button.setStyleSheet('background:#782e38;color:white;font-weight:bold;');lay.addWidget(self.estop_button)
-        info=label('按住移动，松开归零；失焦锁定。软件急停不能替代实体急停。','muted');info.setWordWrap(True);lay.addWidget(info);outer.addWidget(box,1,0);self.tabs.addTab(page,'总览')
+        self.estop_button=button('软件急停',self.emergency_motion);self.estop_button.setObjectName('danger');lay.addWidget(self.estop_button)
+        info=label('按住移动，松开归零；失焦锁定。软件急停不能替代实体急停。','muted');info.setWordWrap(True);lay.addWidget(info);manual_layout.addWidget(box,2);self.feature_tabs.addTab(manual_page,'运动遥控');self.tabs.addTab(page,'总览')
     def make_text_commands(self):
         page=QWidget();lay=QVBoxLayout(page);lay.setSpacing(16)
         lay.addWidget(label('文字 / 语音指令','title'))
-        note=label('先在总览中启用遥控并确认姿态，再输入单条口令。点击下方口令可填入文本框。','muted');note.setWordWrap(True);lay.addWidget(note)
+        note=label('先在“运动遥控”中启用遥控并确认姿态，再输入单条口令。点击下方口令可填入文本框。','muted');note.setWordWrap(True);lay.addWidget(note)
         row=QHBoxLayout();self.command_input=QLineEdit();self.command_input.setPlaceholderText('输入指令，例如：起立、向左看、打招呼');self.command_input.setMaxLength(80);row.addWidget(self.command_input,1)
         self.microphone_button=QPushButton('麦克风（预留）');self.microphone_button.setEnabled(False);self.microphone_button.setToolTip('后续接入 AI 语音识别，将识别文本填入左侧输入框');row.addWidget(self.microphone_button)
         self.command_execute=button('执行指令',self.execute_text_command,True);row.addWidget(self.command_execute);lay.addLayout(row)
@@ -152,7 +180,7 @@ class MainWindow(QMainWindow):
             grid.addWidget(button(name,lambda checked=False,n=name:self.set_command_text(n)),i//5,i%5)
         lay.addLayout(grid)
         info=label('前进、后退、横移：1 秒后停止。起立／趴下及打招呼按明确状态确认完成；其余动作需观察，15 秒仍未确认则停止并锁定。\n失焦停止移动并锁定输入，离散动作继续受监测；已接管会话保持心跳，断开设备后结束。\n原厂文字动作不使用手动速度档位。“已发送”不等于完成；麦克风尚未接入。','muted');info.setWordWrap(True);lay.addWidget(info)
-        row=QHBoxLayout();self.command_stop=button('停止 / Esc',self.stop_text_command);self.command_estop=button('软件急停',self.emergency_motion);row.addWidget(self.command_stop);row.addWidget(self.command_estop);lay.addLayout(row);lay.addStretch();self.tabs.addTab(page,'文字 / 语音')
+        row=QHBoxLayout();self.command_stop=button('停止 / Esc',self.stop_text_command);self.command_estop=button('软件急停',self.emergency_motion);row.addWidget(self.command_stop);row.addWidget(self.command_estop);lay.addLayout(row);lay.addStretch();self.feature_tabs.addTab(page,'文字 / 语音')
     def set_command_text(self,text):
         self.command_input.setText(text)
     def execute_text_command(self):
@@ -169,6 +197,8 @@ class MainWindow(QMainWindow):
             self.hold_button=None;self.hold_direction=None
             if self.motion_call(lambda c:c.text_command(7)):self.command_result.setText('已发送停止口令')
     def motion_call(self,fn):
+        communication=getattr(self,'communicate_panel',None)
+        if communication:communication.cancel_execution('手动操作接管，文字计划取消')
         c=self.runtime.motion
         if c is None:return False
         try:fn(c);return True
@@ -243,7 +273,7 @@ class MainWindow(QMainWindow):
         self.tabs.setTabText(self.alarm_tab_index,f'告警 ({urgent+general})' if urgent+general else '告警')
         self.alarm_table.setRowCount(len(rows))
         for i,(_,severity,title,state,evidence) in enumerate(rows):
-            color=('#ff6d7e' if severity=='紧急' else '#ffbd69') if state=='告警中' else '#7f8c9d' if state=='未判定' else '#71e3cc'
+            color=(self.colors['red'] if severity=='紧急' else self.colors['orange']) if state=='告警中' else self.colors['muted'] if state=='未判定' else self.colors['green']
             for j,text in enumerate((severity,title,state,evidence)):cell(self.alarm_table,i,j,text,color)
         history=list(self.alarm_monitor.history);self.alarm_history.setRowCount(len(history))
         for i,(stamp2,severity,title,event,evidence) in enumerate(history):
@@ -266,6 +296,8 @@ class MainWindow(QMainWindow):
         tools=QTextEdit();tools.setReadOnly(True);tools.setPlainText('list_robots         设备与适配器能力\nget_robot_state     所有可读状态与新鲜度\nget_joint_states    12 个关节数据\nget_diagnostics     连接、服务及采集诊断\nget_camera_frame    最新画面（拒绝过期画面）\n\n资源：robot://current/state\n\n不提供运动工具、任意 SSH 命令或写入接口。');lay.addWidget(tools)
         lay.addWidget(button('复制 MCP 连接配置',self.copy_mcp,True),alignment=Qt.AlignLeft);info=label('支持 Streamable HTTP 客户端。配置含本机访问令牌，请仅用于可信客户端。','muted');info.setWordWrap(True);lay.addWidget(info);lay.addStretch();self.tabs.addTab(p,'AI / MCP')
     def connect_robot(self,password=None):
+        communication=getattr(self,'communicate_panel',None)
+        if communication:communication.cancel_execution('重新连接设备，文字计划取消')
         if not isinstance(password,str):password=self.password.text() if self.password.isEnabled() else ''
         if self.ssh_input_state in ('在线','连接中'):
             self.notice.setText('设备正在连接或 SSH 已连接；需要重连时请先点击“断开连接”。');return
@@ -273,6 +305,8 @@ class MainWindow(QMainWindow):
         self.hold_button=None;self.hold_direction=None
         self.runtime.connect(self.profiles[self.select.currentIndex()],password);self.password.clear();self.show_password.setChecked(False);self.update_ssh_input('连接中' if password else '未连接');self.last_frame=0;self.pixmap=None;self.video.setText('正在连接摄像头…')
     def disconnect_robot(self):
+        communication=getattr(self,'communicate_panel',None)
+        if communication:communication.cancel_execution('断开设备，文字计划取消')
         self.alarm_audio.stop()
         self.hold_button=None;self.hold_direction=None
         self.runtime.disconnect();self.update_ssh_input('已断开');self.pixmap=None;self.video.clear();self.video.setText('已断开连接');self.last_frame=0
@@ -306,16 +340,16 @@ class MainWindow(QMainWindow):
             l=s['connections'].get(name,{});w.setText(f"{name} · {l.get('state','未连接')}");w.setToolTip(l.get('detail',''))
         if s['robot']:self.subtitle.setText(s['robot']['name']+' · '+s['robot']['robot_ip']+' · Lite 3 适配器')
         for k,(v,st) in self.cards.items():
-            e=f[k];txt=display(k,e);v.setText(txt+(' '+e['unit'] if txt!='—' and e['unit'] else ''));size=21 if k=='basic' else 29;color='#7f8c9d' if e['status']=='stale' else '#edf6ff';v.setStyleSheet(f'font-size:{size}px;font-weight:700;color:{color};');st.setText(STATUS[e['status']]+' · '+e.get('source','等待上报'))
+            e=f[k];txt=display(k,e);v.setText(txt+(' '+e['unit'] if txt!='—' and e['unit'] else ''));size=21 if k=='basic' else 29;color=self.colors['muted'] if e['status']=='stale' else self.colors['text'];v.setStyleSheet(f'font-size:{size}px;font-weight:600;color:{color};');st.setText(STATUS[e['status']]+' · '+e.get('source','等待上报'))
         for r,k in enumerate(self.quick_keys):
-            e=f[k];cell(self.quick,r,0,e['label']);cell(self.quick,r,1,display(k,e)+(' '+e['unit'] if 'value'in e else ''));cell(self.quick,r,2,STATUS[e['status']],'#6bdcc8' if e['status']=='live' else '#8195af')
+            e=f[k];cell(self.quick,r,0,e['label']);cell(self.quick,r,1,display(k,e)+(' '+e['unit'] if 'value'in e else ''));cell(self.quick,r,2,STATUS[e['status']],self.colors['green'] if e['status']=='live' else self.colors['muted'])
         for r,k in enumerate(self.field_keys):
-            e=f[k];color='#74889e' if e['status'] in ('stale','unsupported','unavailable') else '#dfe8f3'
+            e=f[k];color=self.colors['muted'] if e['status'] in ('stale','unsupported','unavailable') else self.colors['text']
             for c,text in enumerate([e['group'],e['label']+' ['+k+']',display(k,e),e['unit'],STATUS[e['status']],e.get('source','—'),str(e.get('age_seconds','—'))+' s']):cell(self.fields_table,r,c,text,color)
         for r,j in enumerate(JOINTS):
             cell(self.joints,r,0,j)
             for c,prop in enumerate(('position','velocity','torque','temperature'),1):
-                k=f'joint.{j}.{prop}';e=f[k];cell(self.joints,r,c,display(k,e),'#73e5cd' if e['status']=='live' else '#7f8c9d')
+                k=f'joint.{j}.{prop}';e=f[k];cell(self.joints,r,c,display(k,e),self.colors['green'] if e['status']=='live' else self.colors['muted'])
         txt=json.dumps({k:s[k] for k in ('connections','metadata','packet_counts','capabilities')},ensure_ascii=False,indent=2)
         if self.diagnostic.toPlainText()!=txt:self.diagnostic.setPlainText(txt)
         txt='\n'.join(time.strftime('%H:%M:%S',time.localtime(e['time']))+' '+e['text'] for e in s['events'])
@@ -324,8 +358,12 @@ class MainWindow(QMainWindow):
         self.refresh_alarms(s,stamp)
         if data and stamp!=self.last_frame:p=QPixmap();p.loadFromData(data,'JPEG');self.pixmap=p;self.last_frame=stamp
         if self.pixmap:
-            self.video.setPixmap(self.pixmap.scaled(self.video.size(),Qt.KeepAspectRatio,Qt.SmoothTransformation));age=time.time()-stamp;self.camera_info.setText(f'{size} · 实时预览' if age<3 else f'画面已中断 · {age:.0f} 秒前');self.camera_info.setStyleSheet('color:#71e3cc' if age<3 else 'color:#ffb568')
+            self.video.setPixmap(self.pixmap.scaled(self.video.size(),Qt.KeepAspectRatio,Qt.SmoothTransformation));age=time.time()-stamp;self.camera_info.setText(f'{size} · 实时预览' if age<3 else f'画面已中断 · {age:.0f} 秒前');self.camera_info.setStyleSheet('color:'+self.colors['green' if age<3 else 'orange'])
         else:self.camera_info.setText('等待摄像头画面')
+        if self.pixmap:self.control_video.setPixmap(self.pixmap.scaled(self.control_video.size(),Qt.KeepAspectRatio,Qt.SmoothTransformation))
+        else:self.control_video.setText(self.video.text() or '等待摄像头画面')
+        self.control_camera_info.setText(self.camera_info.text());self.control_camera_info.setStyleSheet(self.camera_info.styleSheet())
+        self.control_status.setText('基本状态：'+self.cards['basic'][0].text()+'  ·  电量：'+self.cards['battery.percent'][0].text())
         control=s['control'];armed=control['armed']
         self.arm_box.blockSignals(True);self.arm_box.setChecked(armed);self.arm_box.blockSignals(False)
         self.arm_box.setEnabled(self.runtime.motion is not None)
@@ -333,6 +371,7 @@ class MainWindow(QMainWindow):
         speed=control.get('speed_level',1);self.speed_slider.blockSignals(True);self.speed_slider.setValue(speed);self.speed_slider.blockSignals(False)
         self.speed_text.setText(f'速度档位：{speed} / 5');self.speed_slider.setEnabled(self.runtime.motion is not None and not control['direction'] and not control['busy'])
         self.estop_button.setEnabled(self.runtime.motion is not None)
+        self.direction_pad.center_stop.setEnabled(self.runtime.motion is not None)
         for b in list(self.motion_buttons.values())+list(self.icon_motion_buttons.values()):b.setEnabled(armed and not control['busy'])
         basic=f['basic'];fresh=basic.get('status')=='live' and basic.get('age_seconds',99)<=.5
         code=basic.get('value');pose=MotionController.posture_from_basic(code) if fresh else None
@@ -365,6 +404,9 @@ class MainWindow(QMainWindow):
     def copy_mcp(self):
         QApplication.clipboard().setText(json.dumps(self.bridge.config(),ensure_ascii=False,indent=2));QMessageBox.information(self,'已复制','MCP 配置已复制。服务仅在应用运行时可用。')
     def closeEvent(self,event):
+        try:QApplication.styleHints().colorSchemeChanged.disconnect(self.system_appearance_changed)
+        except (RuntimeError,TypeError):pass
+        self.communicate_panel.shutdown()
         self.inspection_panel.shutdown()
         self.alarm_audio.close()
         self.timer.stop();self.hold_timer.stop();QApplication.instance().removeEventFilter(self);self.runtime.disconnect();self.bridge.stop();event.accept()

@@ -33,7 +33,7 @@ class InspectionPanel(QWidget):
         title = QLabel('房间巡检 · 人工遥控 / 云端物品分析')
         title.setObjectName('title')
         outer.addWidget(title)
-        intro = QLabel('填写 API 配置 → 开始巡检 → 回到总览人工遥控巡看 → 结束巡检并分析 → 查看物品清单与截图。\n'
+        intro = QLabel('填写 API 配置 → 开始巡检 → 切换到运动遥控人工巡看 → 结束巡检并分析 → 查看物品清单与截图。\n'
                        '自动采集在切换页面后继续；达到图片上限或 10 分钟后自动结束采集并分析，采集结束不会代替你停止遥控。')
         intro.setWordWrap(True)
         outer.addWidget(intro)
